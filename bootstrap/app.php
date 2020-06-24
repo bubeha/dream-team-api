@@ -98,6 +98,10 @@ $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(Fruitcake\Cors\CorsServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
+if ($app->environment() !== 'production') {
+    $app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+}
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
