@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\DatabaseManager;
@@ -41,10 +42,19 @@ class GenerateUsersTableSeeder extends Seeder
      */
     private function insertUsersToDatabase(): void
     {
+        $roles = Role::all();
+        $roleIds = $roles->pluck('id')->toArray();
+
         factory(User::class, 30)->create([
             'password' => '$2y$10$bk2o.4kOqcFMC6gqAAP8H.yURbc20ZsstVy2ZnH7d9CfWKRKejnLi',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-        ]);
+        ])->each(static function ($user) use ($roleIds) {
+            $roleKey = array_rand($roleIds);
+
+            $user
+                ->roles()
+                ->attach($roleIds[$roleKey]);
+        });
     }
 }
