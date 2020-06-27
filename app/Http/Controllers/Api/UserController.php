@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\JsonResponse;
 use Laravel\Lumen\Http\ResponseFactory;
 
 /**
@@ -30,10 +32,14 @@ class UserController extends Controller
 
     /**
      * @param Authenticatable $currentUser
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function __invoke(Authenticatable $currentUser)
     {
+        if ($currentUser instanceof User) {
+            $currentUser->loadMissing(['roles', 'profile']);
+        }
+
         return $this->response->json($currentUser);
     }
 }
