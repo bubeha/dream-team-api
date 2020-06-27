@@ -21,7 +21,7 @@ class AddProfilesTable extends Migration
         Schema::create('profiles', static function (Blueprint $table) {
             $table->id();
             $table->string('job_title')->nullable();
-            $table->json('social_links')->nullable();
+            $table->longText('social_links')->nullable();
             $table->text('short_description')->nullable();
             $table->timestamps();
 
