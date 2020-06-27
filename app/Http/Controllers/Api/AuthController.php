@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Auth\Guard;
@@ -90,5 +91,19 @@ class AuthController extends Controller
             'email' => 'required|email|exists:users',
             'password' => 'required|string|min:8',
         ]);
+    }
+
+    /**
+     * Get the authenticated User
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getLogin(Request $request): JsonResponse
+    {
+        /** @var User $user */
+        $user = $request->user();
+
+        return response()->json($user);
     }
 }
