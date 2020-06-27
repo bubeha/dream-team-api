@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Queries;
 
 use App\Services\QueryModifier\Feed\FeedQueryModifierContract;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Interface ReviewQueries
@@ -20,4 +23,11 @@ interface ReviewQueries
      * @return mixed
      */
     public function getReviewsForEmployee($userId, FeedQueryModifierContract $queryModifier = null, int $size = 10);
+
+    /**
+     * @param $key
+     * @param $userId
+     * @return Builder|Builder[]|Collection|Model
+     */
+    public function getByUserIdAndKey($key, $userId);
 }

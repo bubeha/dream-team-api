@@ -29,4 +29,14 @@ class EloquentReviewQueries implements ReviewQueries
         return $query
             ->paginate($size);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getByUserIdAndKey($key, $userId)
+    {
+        return Review::with(['user.profile', 'author.profile'])
+            ->where('user_id', '=', $userId)
+            ->findOrFail($key);
+    }
 }
