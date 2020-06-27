@@ -20,11 +20,9 @@ class AddNewFieldsToUserModel extends Migration
     public function up(): void
     {
         Schema::table('users', static function (Blueprint $table) {
-            $currentTimestamp = new Expression('CURRENT_TIMESTAMP');
-
             $table->string('image')->nullable();
-            $table->timestamp('date_of_birth')->default($currentTimestamp);
-            $table->timestamp('first_work_date')->default($currentTimestamp);
+            $table->timestamp('date_of_birth')->nullable();
+            $table->timestamp('first_work_date')->nullable();
         });
     }
 
