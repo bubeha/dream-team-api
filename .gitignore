@@ -7,3 +7,4 @@ Homestead.yaml
 
 /storage/mysql-data
 _ide_helper.php
+/public/storage

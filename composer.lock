@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "73f75ba9e4fc670fecf7d215b38e34a6",
+    "content-hash": "52e5eeec4921e62f8438c0ed06af7d7c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1668,16 +1668,16 @@
         },
         {
             "name": "laravel/lumen-framework",
-            "version": "v7.1.4",
+            "version": "v7.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/lumen-framework.git",
-                "reference": "799df9a93b207189530d8765583826080cfceafe"
+                "reference": "5205e9965a61339a2cedbf3795fbed70446f15a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/lumen-framework/zipball/799df9a93b207189530d8765583826080cfceafe",
-                "reference": "799df9a93b207189530d8765583826080cfceafe",
+                "url": "https://api.github.com/repos/laravel/lumen-framework/zipball/5205e9965a61339a2cedbf3795fbed70446f15a3",
+                "reference": "5205e9965a61339a2cedbf3795fbed70446f15a3",
                 "shasum": ""
             },
             "require": {
@@ -1755,7 +1755,7 @@
                 "laravel",
                 "lumen"
             ],
-            "time": "2020-06-16T19:09:59+00:00"
+            "time": "2020-06-23T15:40:08+00:00"
         },
         {
             "name": "lcobucci/jwt",
@@ -7801,7 +7801,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2.5"
+        "php": "^7.2.5",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"
