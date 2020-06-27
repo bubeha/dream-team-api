@@ -10,7 +10,7 @@ use Illuminate\Database\Seeder;
 /**
  * Class UsersTableSeeder
  */
-class ManagerTableSeeder extends Seeder
+class EmployeeTableSeeder extends Seeder
 {
     /**
      * Run seeder
@@ -18,7 +18,7 @@ class ManagerTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $countManagers = User::query()->where('email', '=', 'admin@example.com')->count();
+        $countManagers = User::query()->where('email', '=', 'employee@example.com')->count();
 
         if ($countManagers > 0) {
             return;
@@ -34,10 +34,10 @@ class ManagerTableSeeder extends Seeder
     {
         /** @var User $user */
         $user = \factory(User::class)->create([
-            'email' => 'admin@example.com',
+            'email' => 'employee@example.com',
         ]);
 
-        $role = Role::whereName(Role::MANAGER_ROLE)->first();
+        $role = Role::whereName(Role::EMPLOYER_ROLE)->first();
 
         if ($role) {
             $user->roles()->sync([$role->getKey()]);
