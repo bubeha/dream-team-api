@@ -99,7 +99,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function getLogin(Request $request): JsonResponse
+    public function getAuthenticatedUser(Request $request): JsonResponse
     {
         /** @var User $user */
         $user = $request->user();
