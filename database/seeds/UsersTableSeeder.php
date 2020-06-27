@@ -35,6 +35,7 @@ class UsersTableSeeder extends Seeder
 
     /**
      * Run seeder
+     * @throws Exception
      */
     public function run(): void
     {
