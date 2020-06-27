@@ -20,4 +20,8 @@ class Review extends Model
         'other_comments',
         'status',
     ];
+
+    public const NEGATIVE_STATUS = 'negative';
+    public const POSITIVE_STATUS = 'positive';
+    public const NEUTRAL_STATUS = 'neutral';
 }
