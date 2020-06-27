@@ -13,6 +13,7 @@ class RolesTableSeeder extends Seeder
 {
     private const ROLES = [
         Role::MANAGER_ROLE,
+        Role::EMPLOYER_ROLE,
     ];
 
     /** @var DatabaseManager */
