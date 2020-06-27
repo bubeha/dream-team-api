@@ -21,6 +21,7 @@ class FeedQueryModifier extends QueryModifier implements FeedQueryModifierContra
         $queries->when($this->request->get('searchPhrase'), static function (Builder $query, $value) {
             $query->whereHas('user', static function (Builder $query) use ($value) {
                 $query->where('first_name', 'like', '%' . $value . '%');
+                $query->orWhere('last_name', 'like', '%' . $value . '%');
             })
                 ->orWhereHas('user.profile', static function (Builder $query) use ($value) {
                     $query->where('job_title', 'like', '%' . $value . '%');
