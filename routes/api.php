@@ -13,4 +13,6 @@ $router->group([
     $router->post('logout', 'AuthController@logout');
     /** @uses \App\Http\Controllers\Api\AuthController::getCurrentUserData() */
     $router->post('me', 'AuthController@getCurrentUserData');
+    /** @uses \App\Http\Controllers\Api\FeedController::getFeedForEmployee() */
+    $router->get('feed', 'FeedController@getFeedForEmployee');
 });
