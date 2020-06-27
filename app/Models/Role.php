@@ -30,4 +30,5 @@ class Role extends Model
     protected $fillable = ['name'];
 
     public const MANAGER_ROLE = 'manager';
+    public const EMPLOYER_ROLE = 'employer';
 }
