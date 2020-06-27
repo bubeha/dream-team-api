@@ -167,6 +167,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
             return $disk->url('avatars/default_profile.png');
         }
+
+        return '';
     }
 
     // End Accessors Block
