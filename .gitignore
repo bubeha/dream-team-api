@@ -6,3 +6,4 @@ Homestead.yaml
 .phpunit.result.cache
 
 /storage/mysql-data
+_ide_helper.php
