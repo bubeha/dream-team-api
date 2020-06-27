@@ -40,7 +40,7 @@ class RolesTableSeeder extends Seeder
         });
 
         foreach ($missingRoles as $role) {
-            Role::create([
+            Role::query()->create([
                 'name' => $role,
             ]);
         }

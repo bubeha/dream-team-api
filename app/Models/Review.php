@@ -18,10 +18,6 @@ class Review extends Model
         'strong_personal_characteristics',
         'weak_sides',
         'other_comments',
-        'status',
+        'rating',
     ];
-
-    public const NEGATIVE_STATUS = 'negative';
-    public const POSITIVE_STATUS = 'positive';
-    public const NEUTRAL_STATUS = 'neutral';
 }

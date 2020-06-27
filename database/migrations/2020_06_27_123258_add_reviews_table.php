@@ -31,7 +31,7 @@ class AddReviewsTable extends Migration
             $table->text('strong_personal_characteristics');
             $table->text('weak_sides');
             $table->text('other_comments');
-            $table->string('status');
+            $table->integer('rating');
 
             $table->timestamps();
         });
