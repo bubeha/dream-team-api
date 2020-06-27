@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Auth\Guard;
@@ -55,11 +56,17 @@ class AuthController extends Controller
                 ->json(['error' => 'Invalid credentials'], 401);
         }
 
+        $user = $this->guard->user();
+
+        if ($user instanceof User) {
+            $user->loadMissing(['profile', 'roles']);
+        }
+
         return $this->response->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
             'expires_in' => $this->guard->factory()->getTTL() * 60,
-            'user' => $this->guard->user(),
+            'user' => $user,
         ]);
     }
 
