@@ -18,7 +18,7 @@ class AddProfilesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('profile', static function (Blueprint $table) {
+        Schema::create('profiles', static function (Blueprint $table) {
             $table->id();
             $table->string('job_title')->nullable();
             $table->json('social_links')->nullable();
@@ -38,6 +38,6 @@ class AddProfilesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profile');
+        Schema::dropIfExists('profiles');
     }
 }

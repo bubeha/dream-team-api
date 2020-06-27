@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 use Laravel\Lumen\Auth\Authorizable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -39,6 +40,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @uses \App\Models\User::roles();
+ * @uses \App\Models\User::getFullNameAttribute();
  */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
@@ -50,8 +52,21 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
+        'image',
+        'date_of_birth',
+        'first_work_date',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'full_name',
     ];
 
     /**
@@ -62,12 +77,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
-
-    // Relationships
-    public function roles(): BelongsToMany
-    {
-        return $this->belongsToMany(Role::class, 'users_roles');
-    }
 
     // JWT Subject
 
@@ -86,4 +95,39 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return [];
     }
+
+    // Start Accessors Block
+
+    /**
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    // End Accessors Block
+
+    // Start Relationships Block
+
+    /**
+     * @return BelongsToMany
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'users_roles');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class)->withDefault([
+            'job_title' => null,
+            'social_links' => [],
+            'short_description' => null,
+        ]);
+    }
+    // End Relationships Block
 }
