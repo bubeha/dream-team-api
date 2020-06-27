@@ -20,5 +20,5 @@ interface FeedQueryModifierContract
     /**
      * @param Builder $query
      */
-    public function filterByStatus(Builder $query): void;
+    public function filterByRating(Builder $query): void;
 }

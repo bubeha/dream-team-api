@@ -34,10 +34,22 @@ class FeedQueryModifier extends QueryModifier implements FeedQueryModifierContra
     /**
      * @inheritDoc
      */
-    public function filterByStatus(Builder $query): void
+    public function filterByRating(Builder $query): void
     {
-        $query->when($this->request->get('status'), static function (Builder $query, $value) {
-            $query->where('status', '=', $value);
+        $rating = $this->request->get('rating');
+
+        $query->when($rating !== null, static function (Builder $query) use ($rating) {
+            if ((int)$rating > 0) {
+                $query->where('rating', '>', 0);
+            }
+
+            if ((int)$rating === 0) {
+                $query->where('rating', '=', 0);
+            }
+
+            if ((int)$rating < 0) {
+                $query->where('rating', '<', 0);
+            }
         });
     }
 
@@ -47,6 +59,6 @@ class FeedQueryModifier extends QueryModifier implements FeedQueryModifierContra
     public function modify(Builder $query)
     {
         $this->search($query);
-        $this->filterByStatus($query);
+        $this->filterByRating($query);
     }
 }

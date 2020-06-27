@@ -14,7 +14,8 @@ $router->group([
     /** @uses \App\Http\Controllers\Api\AuthController::getCurrentUserData() */
     $router->post('me', 'AuthController@getCurrentUserData');
     /** @uses \App\Http\Controllers\Api\ReviewController::getFeedForEmployee() */
-    $router->get('feed/{size?}', 'ReviewController@getFeedForEmployee');
+    $router->get('feed', 'ReviewController@getFeedForEmployee');
+    $router->get('feed/size/{size}', 'ReviewController@getFeedForEmployee');
     /** @uses \App\Http\Controllers\Api\ReviewController::show() */
     $router->get('feed/{id}', 'ReviewController@show');
 });
