@@ -48,8 +48,9 @@ class AuthController extends Controller
     public function login(): JsonResponse
     {
         $credentials = $this->validateRequest();
+        $token = $this->guard->attempt($credentials);
 
-        if (! $token = $this->guard->attempt($credentials)) {
+        if (! $token) {
             return $this->response
                 ->json(['error' => 'Invalid credentials'], 401);
         }
@@ -58,6 +59,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
             'expires_in' => $this->guard->factory()->getTTL() * 60,
+            'user' => $this->guard->user(),
         ]);
     }
 
