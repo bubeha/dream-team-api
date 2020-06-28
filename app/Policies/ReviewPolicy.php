@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Models\Review;
+use App\Models\Reviews\Review;
 use App\Models\Role;
 use App\Models\User;
 
