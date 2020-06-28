@@ -54,6 +54,7 @@ class AccountController extends Controller
 
     /**
      * @throws ValidationException
+     * @return array
      */
     private function validateRequest(): array
     {
