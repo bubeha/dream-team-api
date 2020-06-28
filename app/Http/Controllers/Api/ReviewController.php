@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Queries\ReviewQueries;
 use App\Services\QueryModifier\Feed\FeedQueryModifierContract;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Laravel\Lumen\Http\ResponseFactory;
@@ -60,17 +61,16 @@ class ReviewController extends Controller
 
 
     /**
-     * @param Authenticatable $currentUser
      * @param $feedId
      * @return JsonResponse
+     * @throws AuthorizationException
      */
-    public function show(Authenticatable $currentUser, $feedId): JsonResponse
+    public function show($feedId): JsonResponse
     {
-        $result = $this->queries->getByUserIdAndKey(
-            $feedId,
-            $currentUser->getAuthIdentifier()
-        );
+        $review = $this->queries->find($feedId);
 
-        return $this->response->json($result);
+        $this->authorize('show', $review);
+
+        return $this->response->json($review);
     }
 }

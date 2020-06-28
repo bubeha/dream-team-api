@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -39,7 +40,7 @@ use function app;
  * @property-read int $years_of_experience
  * @property-read Profile $profile
  * @property-read int|null $roles_count
- * @property-read Role[]|null $roles
+ * @property-read Collection|Role[]|null $roles
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
  * @method static Builder|User query()
@@ -194,5 +195,15 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
             'short_description' => null,
         ]);
     }
+
     // End Relationships Block
+
+    /**
+     * @param string $roleName
+     * @return bool
+     */
+    public function hasRole(string $roleName): bool
+    {
+        return (bool)$this->roles->where('name', '=', $roleName)->count();
+    }
 }
