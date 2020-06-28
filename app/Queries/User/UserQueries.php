@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Queries\User;
 
-use App\Services\QueryModifier\QueryModifierContract;
+use App\Models\User;
 use App\Services\QueryModifier\User\UserListQueryModifierContract;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Interface UserQueries
@@ -20,17 +18,17 @@ interface UserQueries
      * @param int $size
      * @return mixed
      */
-    public function getUsersWithPagination(int $size = 10);
+    public function getItemsWithPagination(int $size = 10);
 
     /**
      * @param $id
-     * @return Builder|Builder[]|Collection|Model
+     * @return User
      */
-    public function findUserById($id);
+    public function findById($id);
 
     /**
      * @param UserListQueryModifierContract $modifier
      * @return Collection|mixed
      */
-    public function getListOfUsers(UserListQueryModifierContract $modifier = null);
+    public function getList(UserListQueryModifierContract $modifier = null);
 }

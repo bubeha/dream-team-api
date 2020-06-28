@@ -9,7 +9,7 @@ use Illuminate\Database\Seeder;
 /**
  * Class ReviewsSeeder
  */
-class ReviewsSeeder extends Seeder
+class ReviewsSeeder extends Seeder // @codingStandardsIgnoreLine
 {
     /**
      * @return void
@@ -24,7 +24,7 @@ class ReviewsSeeder extends Seeder
             /** @var User $user */
 
             for ($i = 0; $i < 20; $i++) {
-                \factory(Review::class)->create([
+                factory(Review::class)->create([
                     'user_id' => $user->getKey(),
                     'author_id' => $this->getAuthorId(),
                 ]);

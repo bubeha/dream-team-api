@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
 /**
  * Class AddRolesTable
  */
-class AddRolesTable extends Migration
+class AddRolesTable extends Migration // @codingStandardsIgnoreLine
 {
     /**
      * Run the migrations.
@@ -30,7 +30,8 @@ class AddRolesTable extends Migration
                 ->references('id')->on('roles')
                 ->onDelete('cascade');
 
-            $table->foreignId('user_id')->unique()
+            $table->foreignId('user_id')
+                ->unique()
                 ->references('id')->on('users')
                 ->onDelete('cascade');
         });

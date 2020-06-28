@@ -62,12 +62,13 @@ class AuthController extends Controller
             $user->loadMissing(['profile', 'roles']);
         }
 
-        return $this->response->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-            'expires_in' => $this->guard->factory()->getTTL() * 60,
-            'user' => $user,
-        ]);
+        return $this->response
+            ->json([
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'expires_in' => $this->guard->factory()->getTTL() * 60,
+                'user' => $user,
+            ]);
     }
 
     /**
@@ -85,9 +86,10 @@ class AuthController extends Controller
     {
         $this->guard->logout();
 
-        return $this->response->json([
-            'message' => 'Successfully logged out',
-        ]);
+        return $this->response
+            ->json([
+                'message' => 'Successfully logged out',
+            ]);
     }
 
     /**

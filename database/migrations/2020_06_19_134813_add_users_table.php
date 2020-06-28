@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 /**
  * Class AddUsersTable
  */
-class AddUsersTable extends Migration
+class AddUsersTable extends Migration // @codingStandardsIgnoreLine
 {
     /**
      * Run the migrations.

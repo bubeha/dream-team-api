@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 /**
  * Class AddReviewAttributesTable
  */
-class AddReviewAttributesTable extends Migration
+class AddReviewAttributesTable extends Migration // @codingStandardsIgnoreLine
 {
     /**
      * Run the migrations.

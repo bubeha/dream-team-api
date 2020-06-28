@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 /**
  * Class AddProfilesTable
  */
-class AddProfilesTable extends Migration
+class AddProfilesTable extends Migration // @codingStandardsIgnoreLine
 {
     /**
      * Run the migrations.

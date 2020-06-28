@@ -7,7 +7,11 @@ namespace App\Services\Reviews;
 use App\Models\Reviews\Review;
 use App\Models\User;
 use App\Services\Validation\Rules\ReviewRules;
+use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\ConnectionResolverInterface;
+use Illuminate\Database\DatabaseManager;
+use Throwable;
 
 /**
  * Class CreateReviewService
@@ -15,6 +19,18 @@ use Illuminate\Contracts\Auth\Authenticatable;
  */
 class CreateReviewService
 {
+    /** @var ConnectionResolverInterface */
+    private $dbManager;
+
+    /**
+     * CreateReviewService constructor.
+     * @param DatabaseManager $manager
+     */
+    public function __construct(DatabaseManager $manager)
+    {
+        $this->dbManager = $manager;
+    }
+
     /**
      * @return array
      */
@@ -28,27 +44,25 @@ class CreateReviewService
      * @param User $user
      * @param Authenticatable $currentUser
      * @param array $attributes
-     * @return void
+     * @return Review|null
+     * @throws Throwable
      */
-    public function create(User $user, Authenticatable $currentUser, array $attributes): void
+    public function create(User $user, Authenticatable $currentUser, array $attributes): ?Review
     {
-        $ratingAttributes = array_filter($attributes, static function ($value) {
-            return is_numeric($value) && ($value <= 5 || 0 >= $value);
-        });
+        $this->dbManager->beginTransaction();
 
-        app('db')->transaction(function () use ($attributes, $ratingAttributes, $currentUser, $user) {
+        try {
             /** @var Review $review */
-            $review = Review::query()
-                ->create([
-                    'user_id' => $user->getKey(),
-                    'author_id' => $currentUser->getAuthIdentifier(),
-                    'rating' => $this->calculateRating($ratingAttributes),
-                ]);
+            $review = $this->createReviewWithAttributes($user, $currentUser, $attributes);
 
-            $review->reviewAttributes()->createMany(
-                $this->getAttributes($attributes)
-            );
-        });
+            $this->dbManager->commit();
+
+            return $review;
+        } catch (Exception $exception) {
+            $this->dbManager->rollBack();
+        }
+
+        return null;
     }
 
     /**
@@ -72,5 +86,41 @@ class CreateReviewService
         }
 
         return $newAttributes;
+    }
+
+    /**
+     * @param User $user
+     * @param Authenticatable $currentUser
+     * @param array $attributes
+     * @return Review|null
+     */
+    protected function createReviewWithAttributes(User $user, Authenticatable $currentUser, array $attributes): ?Review
+    {
+        /** @var Review $review */
+        $review = Review::query()
+            ->create([
+                'user_id' => $user->getKey(),
+                'author_id' => $currentUser->getAuthIdentifier(),
+                'rating' => $this->calculateRating(
+                    $this->getRattingAttributes($attributes)
+                ),
+            ]);
+
+        $review->reviewAttributes()->createMany(
+            $this->getAttributes($attributes)
+        );
+
+        return $review;
+    }
+
+    /**
+     * @param array $attributes
+     * @return array
+     */
+    protected function getRattingAttributes(array $attributes): array
+    {
+        return array_filter($attributes, static function ($value) {
+            return is_numeric($value) && ($value <= 5 || 0 >= $value);
+        });
     }
 }

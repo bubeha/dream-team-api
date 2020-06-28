@@ -1,21 +1,22 @@
 <?php
 
-use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
-
-class ExampleTest extends TestCase
+/**
+ * Class ExampleTest
+ */
+class ExampleTest extends TestCase // @codingStandardsIgnoreLine
 {
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function testExample()
+    public function testExample(): void
     {
         $this->get('/');
 
         $this->assertEquals(
-            $this->app->version(), $this->response->getContent()
+            $this->app->version(),
+            $this->response->getContent()
         );
     }
 }

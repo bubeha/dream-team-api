@@ -44,9 +44,10 @@ class UserController extends Controller
     {
         $this->authorize('list', User::class);
 
-        $result = $this->queries->getUsersWithPagination();
-
-        return $this->response->json($result);
+        return $this->response
+            ->json(
+                $this->queries->getItemsWithPagination()
+            );
     }
 
     /**
@@ -57,12 +58,15 @@ class UserController extends Controller
      */
     public function getUserFeed(EloquentReviewQueries $queries, $userId): JsonResponse
     {
-        $user = $this->queries->findUserById($userId);
+        $user = $this->queries
+            ->findById($userId);
+
         $this->authorize('show', $user);
 
-        $result = $queries->getReviewsForEmployee($user->getKey());
-
-        return $this->response->json($result);
+        return $this->response
+            ->json(
+                $queries->getReviewsForEmployee($user->getKey())
+            );
     }
 
     /**
@@ -74,9 +78,10 @@ class UserController extends Controller
     {
         $this->authorize('list', User::class);
 
-        $result = $this->queries->getListOfUsers($modifier);
-
-        return $this->response->json($result);
+        return $this->response
+            ->json(
+                $this->queries->getList($modifier)
+            );
     }
 
     /**
@@ -86,10 +91,11 @@ class UserController extends Controller
      */
     public function getUser($userId): JsonResponse
     {
-        $user = $this->queries->findUserById($userId);
+        $user = $this->queries->findById($userId);
 
         $this->authorize('show', $user);
 
-        return $this->response->json($user);
+        return $this->response
+            ->json($user);
     }
 }

@@ -29,6 +29,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Profile whereSocialLinks($value)
  * @method static Builder|Profile whereUpdatedAt($value)
  * @method static Builder|Profile whereUserId($value)
+ * @mixin \Eloquent
  */
 class Profile extends Model
 {

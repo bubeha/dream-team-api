@@ -11,7 +11,29 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Review
+ *
  * @package App\Models
+ * @property int $id
+ * @property int $user_id
+ * @property int $author_id
+ * @property int $rating
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $author
+ * @property-read array $attributes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Reviews\Attribute[] $reviewAttributes
+ * @property-read int|null $review_attributes_count
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review whereAuthorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review whereUserId($value)
+ * @mixin \Eloquent
  */
 class Review extends Model
 {

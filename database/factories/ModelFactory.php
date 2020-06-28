@@ -1,6 +1,6 @@
 <?php
 
-/** @var Factory $factory */
+// phpcs:disable
 
 use App\Models\Profile;
 use App\Models\Reviews\Review;
@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Factory;
 | model instances for testing / seeding your application's database.
 |
 */
+
+/** @var Factory $factory */
 
 /**
  * @return array

@@ -60,6 +60,7 @@ use function app;
  * @uses \App\Models\User::getAgeAttribute();
  * @uses \App\Models\User::getYearsOfExperienceAttribute();
  * @uses \App\Models\User::getImageSrcAttribute();
+ * @mixin \Eloquent
  */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {

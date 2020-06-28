@@ -9,7 +9,7 @@ use Illuminate\Database\Seeder;
 /**
  * Class RolesTableSeeder
  */
-class RolesTableSeeder extends Seeder
+class RolesTableSeeder extends Seeder // @codingStandardsIgnoreLine
 {
     private const ROLES = [
         Role::MANAGER_ROLE,
