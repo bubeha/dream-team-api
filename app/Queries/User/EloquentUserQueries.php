@@ -14,11 +14,10 @@ use Illuminate\Database\Query\Expression;
  */
 class EloquentUserQueries implements UserQueries
 {
-
     /**
      * @inheritDoc
      */
-    public function getUsersWithPagination(int $size = 10)
+    public function getItemsWithPagination(int $size = 10)
     {
         return User::with('profile')->paginate($size);
     }
@@ -26,7 +25,7 @@ class EloquentUserQueries implements UserQueries
     /**
      * @inheritDoc
      */
-    public function findUserById($id)
+    public function findById($id)
     {
         return User::query()
             ->with('profile')
@@ -36,7 +35,7 @@ class EloquentUserQueries implements UserQueries
     /**
      * @inheritDoc
      */
-    public function getListOfUsers(UserListQueryModifierContract $modifier = null)
+    public function getList(UserListQueryModifierContract $modifier = null)
     {
         $query = User::with('profile')
             ->select('id', new Expression('CONCAT(first_name, \' \', last_name) as name'));

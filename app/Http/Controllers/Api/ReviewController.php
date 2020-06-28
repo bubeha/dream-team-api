@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Queries\ReviewQueries;
 use App\Queries\User\UserQueries;
 use App\Services\QueryModifier\Feed\FeedQueryModifierContract;
@@ -16,6 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Http\ResponseFactory;
+use Throwable;
 
 /**
  * Class FeedController
@@ -42,23 +42,24 @@ class ReviewController extends Controller
 
     /**
      * @param Authenticatable $currentUser
-     * @param FeedQueryModifierContract $queryModifier
+     * @param FeedQueryModifierContract $modifier
      * @param int $size
      * @return mixed
      */
     public function getFeedForEmployee(
         Authenticatable $currentUser,
-        FeedQueryModifierContract $queryModifier,
+        FeedQueryModifierContract $modifier,
         int $size = 10
     ) {
         $result = $this->queries
             ->getReviewsForEmployee(
                 $currentUser->getAuthIdentifier(),
-                $queryModifier,
+                $modifier,
                 $size
             );
 
-        return $this->response->json($result);
+        return $this->response
+            ->json($result);
     }
 
     /**
@@ -72,7 +73,8 @@ class ReviewController extends Controller
 
         $this->authorize('show', $review);
 
-        return $this->response->json($review);
+        return $this->response
+            ->json($review);
     }
 
     /**
@@ -84,6 +86,7 @@ class ReviewController extends Controller
      * @return JsonResponse
      * @throws AuthorizationException
      * @throws ValidationException
+     * @throws Throwable
      */
     public function addNewReviewToUser(
         $userId,
@@ -92,16 +95,28 @@ class ReviewController extends Controller
         CreateReviewService $service,
         Authenticatable $currentUser
     ): JsonResponse {
-        /** @var User $user */
-        $user = $userQueries->findUserById($userId);
+        $user = $userQueries->findById($userId);
 
         /** @uses \App\Policies\UserPolicy::createReview() */
         $this->authorize('createReview', $user);
 
-        $data = $this->validate($request, $service->getValidationRules());
+        $attributes = $this->validate(
+            $request,
+            $service->getValidationRules()
+        );
 
-        $service->create($user, $currentUser, $data);
+        $this->up();
 
-        return $this->response->json(true);
+        return $this->response->json(
+            $service->create($user, $currentUser, $attributes)
+        );
+    }
+
+    /**
+     * @return int
+     */
+    public function up(): int
+    {
+        return 123;
     }
 }

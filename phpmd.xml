@@ -38,6 +38,7 @@
     <!-- se importa naming y se excluye ShortVariable para ser ajustada despues. -->
     <rule ref="rulesets/naming.xml">
         <exclude name="ShortVariable"/>
+        <exclude name="ShortMethodName"/>
     </rule>
     <rule ref="rulesets/naming.xml/ShortVariable"
           since="0.2"
@@ -50,5 +51,17 @@
             <property name="exceptions" value="id,q,i,j,to,ip"/>
         </properties>
     </rule>
+    <rule ref="rulesets/naming.xml/ShortMethodName"
+          since="0.2"
+          message="Avoid using short method names like {0}::{1}(). The configured minimum method name length is {2}."
+          class="PHPMD\Rule\Naming\ShortMethodName"
+          externalInfoUrl="https://phpmd.org/rules/naming.html#shortmethodname">
+        <priority>3</priority>
+        <properties>
+            <property name="minimum" description="Minimum length for a method or function name" value="2"/>
+            <property name="exceptions" value="up"/>
+        </properties>
+    </rule>
     <rule ref="rulesets/unusedcode.xml"/>
 </ruleset>
+

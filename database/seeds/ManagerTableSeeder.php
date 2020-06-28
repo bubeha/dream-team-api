@@ -10,7 +10,7 @@ use Illuminate\Database\Seeder;
 /**
  * Class UsersTableSeeder
  */
-class ManagerTableSeeder extends Seeder
+class ManagerTableSeeder extends Seeder // @codingStandardsIgnoreLine
 {
     /**
      * Run seeder
@@ -33,7 +33,7 @@ class ManagerTableSeeder extends Seeder
     private function insertAdminToDatabase(): void
     {
         /** @var User $user */
-        $user = \factory(User::class)->create([
+        $user = factory(User::class)->create([
             'email' => 'admin@example.com',
         ]);
 
@@ -43,7 +43,7 @@ class ManagerTableSeeder extends Seeder
             $user->roles()->sync([$role->getKey()]);
         }
 
-        \factory(Profile::class)->create([
+        factory(Profile::class)->create([
             'user_id' => $user->getKey(),
         ]);
     }

@@ -163,7 +163,7 @@ class ReviewRules implements RulesFactory
                 'string',
                 'in:-2,-1,1,2',
             ],
-            $prefix . 'ableToTakeResponsibilityForMistakes ' => [
+            $prefix . 'ableToTakeResponsibilityForMistakes' => [
                 'required',
                 'string',
                 'in:-2,-1,1,2',

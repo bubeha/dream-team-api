@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 /**
  * Class RemoveSomeFieldsFromReviewTable
  */
-class RemoveSomeFieldsFromReviewTable extends Migration
+class RemoveSomeFieldsFromReviewTable extends Migration // @codingStandardsIgnoreLine
 {
     /**
      * Run the migrations.

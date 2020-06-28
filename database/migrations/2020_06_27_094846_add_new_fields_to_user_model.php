@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
 /**
  * Class AddNewFieldsToUserModel
  */
-class AddNewFieldsToUserModel extends Migration
+class AddNewFieldsToUserModel extends Migration // @codingStandardsIgnoreLine
 {
     /**
      * Run the migrations.

@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 /**
  * Class GenerateUsersTableSeeder
  */
-class GenerateUsersTableSeeder extends Seeder
+class GenerateUsersTableSeeder extends Seeder // @codingStandardsIgnoreLine
 {
     /** @var DatabaseManager */
     private $databaseManager;
