@@ -23,6 +23,12 @@ class Review extends Model
         'rating',
     ];
 
+    protected $with = ['reviewAttributes'];
+
+    protected $appends = ['attributes'];
+
+    protected $hidden = ['reviewAttributes'];
+
     /**
      * @return BelongsTo
      */
@@ -42,8 +48,26 @@ class Review extends Model
     /**
      * @return HasMany
      */
-    public function attributes(): HasMany
+    public function reviewAttributes(): HasMany
     {
         return $this->hasMany(Attribute::class);
+    }
+
+    /**
+     * Attributes mutator
+     *
+     * @return array
+     */
+    public function getAttributesAttribute()
+    {
+        $attributes = [];
+
+        if (isset($this->relations['reviewAttributes'])) {
+            foreach ($this->relations['reviewAttributes'] as $attribute) {
+                $attributes[$attribute['name']] = $attribute['value'];
+            }
+        }
+
+        return $attributes;
     }
 }

@@ -45,7 +45,7 @@ class CreateReviewService
                     'rating' => $this->calculateRating($ratingAttributes),
                 ]);
 
-            $review->attributes()->createMany(
+            $review->reviewAttributes()->createMany(
                 $this->getAttributes($attributes)
             );
         });

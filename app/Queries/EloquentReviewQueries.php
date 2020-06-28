@@ -27,6 +27,7 @@ class EloquentReviewQueries implements ReviewQueries
         }
 
         return $query
+            ->orderBy('created_at', 'desc')
             ->paginate($size);
     }
 
