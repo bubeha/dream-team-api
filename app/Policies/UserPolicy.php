@@ -39,6 +39,6 @@ class UserPolicy
      */
     public function createReview(User $currentUser, User $user): bool
     {
-        return $currentUser->hasRole(Role::MANAGER_ROLE) && $user->id !== $currentUser->id;
+        return $user->id !== $currentUser->id;
     }
 }
