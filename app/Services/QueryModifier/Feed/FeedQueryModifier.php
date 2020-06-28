@@ -27,9 +27,20 @@ class FeedQueryModifier extends QueryModifier implements FeedQueryModifierContra
                     ->orWhereHas('author.profile', static function (Builder $query) use ($value) {
                         $query->where('job_title', 'like', '%' . $value . '%');
                     })
-                    ->orWhere('strong_personal_characteristics', 'like', '%' . $value . '%')
-                    ->orWhere('weak_sides', 'like', '%' . $value . '%')
-                    ->orWhere('other_comments', 'like', '%' . $value . '%');
+                    ->orWhereHas('reviewAttributes', static function (Builder $query) use ($value) {
+                        $query->where(static function (Builder $query) use ($value) {
+                            $query->where('name', '=', 'strongPersonalCharacteristics')
+                                ->where('value', 'like', '%' . $value . '%');
+                        })
+                            ->orWhere(static function (Builder $query) use ($value) {
+                                $query->where('name', '=', 'weakSides')
+                                    ->Where('value', 'like', '%' . $value . '%');
+                            })
+                            ->orWhere(static function (Builder $query) use ($value) {
+                                $query->where('name', '=', 'otherComments')
+                                    ->Where('value', 'like', '%' . $value . '%');
+                            });
+                    });
             });
         });
     }
