@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Queries;
 
-use App\Models\Review;
+use App\Models\Reviews\Review;
 use App\Services\QueryModifier\Feed\FeedQueryModifierContract;
 
 /**

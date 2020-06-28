@@ -31,4 +31,14 @@ class UserPolicy
     {
         return $currentUser->hasRole(Role::MANAGER_ROLE);
     }
+
+    /**
+     * @param User $currentUser
+     * @param User $user
+     * @return bool
+     */
+    public function createReview(User $currentUser, User $user): bool
+    {
+        return $currentUser->hasRole(Role::MANAGER_ROLE) && $user->id !== $currentUser->id;
+    }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Models\Review;
+use App\Models\Reviews\Review;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 

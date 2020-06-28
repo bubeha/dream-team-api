@@ -3,7 +3,7 @@
 /** @var Factory $factory */
 
 use App\Models\Profile;
-use App\Models\Review;
+use App\Models\Reviews\Review;
 use App\Models\User;
 use Carbon\Carbon;
 use Faker\Generator as Faker;

@@ -26,4 +26,6 @@ $router->group([
     $router->get('users/list', 'UserController@getListOfUsers');
     /** @uses \App\Http\Controllers\Api\UserController::getUser() */
     $router->get('users/{userId}', 'UserController@getUser');
+    /** @uses \App\Http\Controllers\Api\ReviewController::addNewReviewToUser() */
+    $router->post('users/{userId}/reviews', 'ReviewController@addNewReviewToUser');
 });

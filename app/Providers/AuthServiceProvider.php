@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Review;
+use App\Models\Reviews\Review;
 use App\Models\User;
 use App\Policies\ReviewPolicy;
 use App\Policies\UserPolicy;
