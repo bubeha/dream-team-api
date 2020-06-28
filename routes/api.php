@@ -18,8 +18,12 @@ $router->group([
     $router->get('feed/size/{size}', 'ReviewController@getFeedForEmployee');
     /** @uses \App\Http\Controllers\Api\ReviewController::show() */
     $router->get('feed/{feedId}', 'ReviewController@show');
-    /** @uses \App\Http\Controllers\Api\UserController::getListOfUsers() */
-    $router->get('users', 'UserController@getListOfUsers');
+    /** @uses \App\Http\Controllers\Api\UserController::getUsersWithPagination() */
+    $router->get('users', 'UserController@getUsersWithPagination');
     /** @uses \App\Http\Controllers\Api\UserController::getUserFeed() */
     $router->get('users/{userId}/feed', 'UserController@getUserFeed');
+    /** @uses \App\Http\Controllers\Api\UserController::getListOfUsers() */
+    $router->get('users/list', 'UserController@getListOfUsers');
+    /** @uses \App\Http\Controllers\Api\UserController::getUser() */
+    $router->get('users/{userId}', 'UserController@getUser');
 });
