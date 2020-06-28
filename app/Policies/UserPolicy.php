@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Models\Role;
 use App\Models\User;
 
 /**
@@ -18,9 +17,9 @@ class UserPolicy
      * @param User $user
      * @return bool
      */
-    public function show(User $currentUser, User $user): bool
+    public function show(User $currentUser): bool
     {
-        return $currentUser->hasRole(Role::MANAGER_ROLE) || $currentUser->id === $user->id;
+        return (bool)$currentUser;
     }
 
     /**
