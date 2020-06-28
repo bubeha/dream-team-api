@@ -18,13 +18,10 @@ use Laravel\Lumen\Http\ResponseFactory;
  */
 class ReviewController extends Controller
 {
-    /**
-     * @var ResponseFactory
-     */
+    /** @var ResponseFactory */
     private $response;
-    /**
-     * @var ReviewQueries
-     */
+
+    /** @var ReviewQueries */
     private $queries;
 
     /**
@@ -58,7 +55,6 @@ class ReviewController extends Controller
 
         return $this->response->json($result);
     }
-
 
     /**
      * @param $feedId
