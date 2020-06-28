@@ -16,4 +16,9 @@ interface UserListQueryModifierContract
      * @param Builder $queries
      */
     public function search(Builder $queries): void;
+
+    /**
+     * @param Builder $queries
+     */
+    public function ignoreCurrentUser(Builder $queries): void;
 }

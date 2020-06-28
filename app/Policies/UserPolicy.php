@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function list(User $currentUser): bool
     {
-        return $currentUser->hasRole(Role::MANAGER_ROLE);
+        return (bool)$currentUser;
     }
 
     /**

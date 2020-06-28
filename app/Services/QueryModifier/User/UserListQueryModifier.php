@@ -24,6 +24,16 @@ class UserListQueryModifier extends QueryModifier implements UserListQueryModifi
     }
 
     /**
+     * @param Builder $queries
+     */
+    public function ignoreCurrentUser(Builder $queries): void
+    {
+        if ($user = $this->request->user()) {
+            $queries->where('id', '!=', $user->getKey());
+        }
+    }
+
+    /**
      * @inheritDoc
      */
     public function modify(Builder $query)
