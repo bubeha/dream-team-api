@@ -26,4 +26,10 @@ $router->group([
     $router->get('users/list', 'UserController@getListOfUsers');
     /** @uses \App\Http\Controllers\Api\UserController::getUser() */
     $router->get('users/{userId}', 'UserController@getUser');
+
+    $router->group([
+        'prefix' => 'account',
+    ], static function () use ($router) {
+        $router->put('/{userId}/edit', 'AccountController@updateUser');
+    });
 });
