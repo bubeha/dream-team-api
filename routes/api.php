@@ -17,5 +17,9 @@ $router->group([
     $router->get('feed', 'ReviewController@getFeedForEmployee');
     $router->get('feed/size/{size}', 'ReviewController@getFeedForEmployee');
     /** @uses \App\Http\Controllers\Api\ReviewController::show() */
-    $router->get('feed/{id}', 'ReviewController@show');
+    $router->get('feed/{feedId}', 'ReviewController@show');
+    /** @uses \App\Http\Controllers\Api\UserController::getListOfUsers() */
+    $router->get('users', 'UserController@getListOfUsers');
+    /** @uses \App\Http\Controllers\Api\UserController::getUserFeed() */
+    $router->get('users/{userId}/feed', 'UserController@getUserFeed');
 });

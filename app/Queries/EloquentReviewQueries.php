@@ -33,10 +33,9 @@ class EloquentReviewQueries implements ReviewQueries
     /**
      * @inheritDoc
      */
-    public function getByUserIdAndKey($key, $userId)
+    public function find($key)
     {
         return Review::with(['user.profile', 'author.profile'])
-            ->where('user_id', '=', $userId)
             ->findOrFail($key);
     }
 }

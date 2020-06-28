@@ -6,7 +6,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Contracts\Auth\Authenticatable;
+use App\Queries\EloquentReviewQueries;
+use App\Queries\User\UserQueries;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Laravel\Lumen\Http\ResponseFactory;
 
@@ -16,30 +18,49 @@ use Laravel\Lumen\Http\ResponseFactory;
  */
 class UserController extends Controller
 {
-    /**
-     * @var ResponseFactory
-     */
+    /** @var ResponseFactory */
     private $response;
+
+    /** @var UserQueries */
+    private $queries;
 
     /**
      * UserController constructor.
      * @param ResponseFactory $response
+     * @param UserQueries $queries
      */
-    public function __construct(ResponseFactory $response)
+    public function __construct(ResponseFactory $response, UserQueries $queries)
     {
         $this->response = $response;
+        $this->queries = $queries;
     }
 
     /**
-     * @param Authenticatable $currentUser
      * @return JsonResponse
+     * @throws AuthorizationException
      */
-    public function __invoke(Authenticatable $currentUser)
+    public function getListOfUsers(): JsonResponse
     {
-        if ($currentUser instanceof User) {
-            $currentUser->loadMissing(['roles', 'profile']);
-        }
+        $this->authorize('list', User::class);
 
-        return $this->response->json($currentUser);
+        $result = $this->queries->getListOfUsers();
+
+        return $this->response->json($result);
+    }
+
+    /**
+     * @param EloquentReviewQueries $queries
+     * @param $userId
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function getUserFeed(EloquentReviewQueries $queries, $userId): JsonResponse
+    {
+        $user = $this->queries->find($userId);
+        $this->authorize('show', $user);
+
+        $result = $queries->getReviewsForEmployee($user->getKey());
+
+        return $this->response->json($result);
     }
 }

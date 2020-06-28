@@ -26,8 +26,7 @@ interface ReviewQueries
 
     /**
      * @param $key
-     * @param $userId
      * @return Builder|Builder[]|Collection|Model
      */
-    public function getByUserIdAndKey($key, $userId);
+    public function find($key);
 }
