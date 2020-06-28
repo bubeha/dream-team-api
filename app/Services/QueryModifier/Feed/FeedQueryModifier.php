@@ -23,7 +23,7 @@ class FeedQueryModifier extends QueryModifier implements FeedQueryModifierContra
                 $query->where('first_name', 'like', '%' . $value . '%');
                 $query->orWhere('last_name', 'like', '%' . $value . '%');
             })
-                ->orWhereHas('user.profile', static function (Builder $query) use ($value) {
+                ->orWhereHas('author.profile', static function (Builder $query) use ($value) {
                     $query->where('job_title', 'like', '%' . $value . '%');
                 })
                 ->orWhere('strong_personal_characteristics', 'like', '%' . $value . '%')
