@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Reviews\Review;
+use App\Models\Team;
 use App\Models\User;
 use App\Policies\ReviewPolicy;
+use App\Policies\TeamPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -34,5 +36,6 @@ class AuthServiceProvider extends ServiceProvider
 
         $gate->policy(User::class, UserPolicy::class);
         $gate->policy(Review::class, ReviewPolicy::class);
+        $gate->policy(Team::class, TeamPolicy::class);
     }
 }

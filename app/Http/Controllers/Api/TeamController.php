@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Team;
 use App\Queries\Team\TeamQueries;
 use App\Services\Teams\TeamsService;
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -41,9 +43,12 @@ class TeamController extends Controller
     /**
      * @param Request $request
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function getTeams(Request $request): JsonResponse
     {
+        $this->authorize('list', Team::class);
+
         $result = $this->queries->getTeamsWithPagination($request->get('size', 10));
 
         return $this->response->json($result);
@@ -52,10 +57,13 @@ class TeamController extends Controller
     /**
      * @param $id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function showTeam($id): JsonResponse
     {
         $team = $this->queries->findOrFail($id);
+
+        $this->authorize('show', $team);
 
         return $this->response->json($team);
     }
@@ -68,6 +76,8 @@ class TeamController extends Controller
      */
     public function createTeam(Request $request, TeamsService $service): JsonResponse
     {
+        $this->authorize('create', Team::class);
+
         $this->validate($request, $this->getValidationRules());
 
         $team = $service->createTeam(
@@ -87,6 +97,8 @@ class TeamController extends Controller
      */
     public function updateTeam(Request $request, TeamsService $service, $id): JsonResponse
     {
+        $this->authorize('update', Team::class);
+
         /** @var Team $team */
         $team = $this->queries->findOrFail($id);
 
@@ -104,11 +116,16 @@ class TeamController extends Controller
     /**
      * @param $id
      * @return mixed
+     * @throws AuthorizationException
+     * @throws Exception
      */
     public function deleteTeam($id)
     {
-        return Team::query()->where('id', '=', $id)
-            ->delete();
+        $this->authorize('delete', Team::class);
+
+        $team = $this->queries->findOrFail($id);
+
+        return $team->delete();
     }
 
     /**
