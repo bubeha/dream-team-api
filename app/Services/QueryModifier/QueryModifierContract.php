@@ -7,8 +7,8 @@ namespace App\Services\QueryModifier;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class QueryModifierContract
- * @package App\Services
+ * Interface QueryModifierContract
+ * @package App\Services\QueryModifier
  */
 interface QueryModifierContract
 {

@@ -3,8 +3,6 @@
 // phpcs:disable
 
 use App\Models\Profile;
-use App\Models\Reviews\Attribute;
-use App\Models\Reviews\Review;
 use App\Models\User;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
@@ -40,10 +38,10 @@ function getTwoDates(): array
     );
 
     if ($first instanceof Carbon && $first->lessThan($second)) {
-        return [$second, $first];
+        return [$first, $second];
     }
 
-    return [$first, $second];
+    return [$second, $first];
 }
 
 $factory->define(User::class, static function (Faker $faker) {
@@ -54,7 +52,7 @@ $factory->define(User::class, static function (Faker $faker) {
         'last_name' => $faker->lastName,
         'email' => $faker->unique()->email,
         'image' => null,
-        'password' => '$2y$10$bk2o.4kOqcFMC6gqAAP8H.yURbc20ZsstVy2ZnH7d9CfWKRKejnLi',
+        'password' => '$2y$10$bk2o.4kOqcFMC6gqAAP8H.yURbc20ZsstVy2ZnH7d9CfWKRKejnLi', // 12345678
         'date_of_birth' => $dateOrBirth,
         'first_work_date' => $firstWorkDate,
     ];
@@ -85,16 +83,5 @@ $factory->define(Profile::class, static function (Faker $faker) {
             ],
         ],
         'short_description' => $faker->text(500),
-    ];
-});
-
-$factory->define(Review::class, static function (Faker $faker) {
-    return [
-    ];
-});
-
-$factory->afterMaking(Attribute::class, static function (Faker $faker) {
-    return [
-
     ];
 });

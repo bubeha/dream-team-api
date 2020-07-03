@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
 
+/**
+ * Class Authenticate
+ * @package App\Http\Middleware
+ */
 class Authenticate
 {
     /**

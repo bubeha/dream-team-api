@@ -14,7 +14,6 @@ class UserPolicy
 {
     /**
      * @param User $currentUser
-     * @param User $user
      * @return bool
      */
     public function show(User $currentUser): bool

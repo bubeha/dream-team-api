@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models\Reviews;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * Class Attribute
@@ -14,18 +16,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $value
  * @property int $review_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Attribute newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Attribute newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Attribute query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Attribute whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Attribute whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Attribute whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Attribute whereReviewId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Attribute whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Attribute whereValue($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Attribute newModelQuery()
+ * @method static Builder|Attribute newQuery()
+ * @method static Builder|Attribute query()
+ * @method static Builder|Attribute whereCreatedAt($value)
+ * @method static Builder|Attribute whereId($value)
+ * @method static Builder|Attribute whereName($value)
+ * @method static Builder|Attribute whereReviewId($value)
+ * @method static Builder|Attribute whereUpdatedAt($value)
+ * @method static Builder|Attribute whereValue($value)
  */
 class Attribute extends Model
 {
