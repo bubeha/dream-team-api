@@ -29,7 +29,7 @@ class GenerateUsersTableSeeder extends Seeder // @codingStandardsIgnoreLine
      */
     public function run(): void
     {
-        if ($this->databaseManager->table('users')->count() > 1) {
+        if ($this->databaseManager->table('users')->count() > 2) {
             return;
         }
 
@@ -44,7 +44,7 @@ class GenerateUsersTableSeeder extends Seeder // @codingStandardsIgnoreLine
         $roles = Role::all();
         $roleIds = $roles->pluck('id')->toArray();
 
-        factory(User::class, 30)
+        factory(User::class, 50)
             ->create()
             ->each(static function ($user) use ($roleIds) {
                 $roleKey = array_rand($roleIds);
