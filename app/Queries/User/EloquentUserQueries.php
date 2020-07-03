@@ -84,4 +84,38 @@ class EloquentUserQueries implements UserQueries
             ->whereIn('id', $users)
             ->get();
     }
+
+    /**
+     * @param $currentUserId
+     * @param array $authorIds
+     * @param string $rating
+     * @return mixed|void
+     */
+    public function getUserWithReviews($currentUserId, array $authorIds, string $rating)
+    {
+        return User::query()
+            ->with([
+                'reviews' => static function ($query) use ($rating, $currentUserId, $authorIds) {
+                    $mapping = [
+                        'neutral' => '=',
+                        'positive' => '>',
+                        'negative' => '<',
+                    ];
+
+                    /** @var Builder $query */
+                    $query
+                        ->with('author.profile')
+                        ->whereIn('author_id', $authorIds)
+                        ->where('user_id', '=', $currentUserId)
+                        ->where('user_id', '!=', new Expression('author_id'))
+                        ->groupBy('author_id')
+                        ->orderBy('created_at', 'desc');
+
+                    if (isset($mapping[$rating])) {
+                        $query->where('rating', $mapping[$rating], 0);
+                    }
+                },
+            ])
+            ->findOrFail($currentUserId);
+    }
 }

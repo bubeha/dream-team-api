@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Services\Analise\AnaliseService;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -20,27 +21,60 @@ class AnaliseController extends Controller
     /** @var ResponseFactory */
     private $response;
 
+    /** @var Request */
+    private $request;
+
+    /** @var AnaliseService */
+    private $service;
+
     /**
      * AnaliseController constructor.
      * @param ResponseFactory $response
+     * @param Request $request
+     * @param AnaliseService $service
      */
-    public function __construct(ResponseFactory $response)
+    public function __construct(ResponseFactory $response, Request $request, AnaliseService $service)
     {
         $this->response = $response;
+        $this->request = $request;
+        $this->service = $service;
     }
 
     /**
-     * @param Request $request
-     * @param AnaliseService $service
      * @return JsonResponse
      * @throws ValidationException
      */
-    public function usersAnalise(Request $request, AnaliseService $service): JsonResponse
+    public function getRelationshipStatistics(): JsonResponse
     {
-        $attributes = $this->validate($request, $this->getValidationRules());
+        $attributes = $this->validate($this->request, $this->getValidationRules());
 
         return $this->response->json(
-            $service->analiseUsers($attributes['users'])
+            $this->service->analyzeUsers($attributes['users'])
+        );
+    }
+
+    /**
+     * @param Authenticatable $currentUser
+     * @return JsonResponse
+     * @throws ValidationException
+     */
+    public function analyzeUser(Authenticatable $currentUser): JsonResponse
+    {
+        $attributes = $this->validate(
+            $this->request,
+            array_merge(
+                $this->getValidationRules(),
+                [
+                    'rating' => [
+                        'required',
+                        'in:positive,negative,neutral',
+                    ],
+                ]
+            )
+        );
+
+        return $this->response->json(
+            $this->service->analyzeCurrentUser($currentUser, $attributes['users'], $attributes['rating'])
         );
     }
 

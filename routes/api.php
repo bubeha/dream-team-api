@@ -50,6 +50,8 @@ $router->group([
         $router->delete('/{id}', 'TeamController@deleteTeam');
     });
 
-    /** @uses \App\Http\Controllers\Api\AnaliseController::usersAnalise() */
-    $router->post('analise/users', 'AnaliseController@usersAnalise');
+    /** @uses \App\Http\Controllers\Api\AnaliseController::getRelationshipStatistics() */
+    $router->post('analyze/users', 'AnaliseController@getRelationshipStatistics');
+    /** @uses \App\Http\Controllers\Api\AnaliseController::analyzeUser() */
+    $router->post('analyze/users/{id}', 'AnaliseController@analyzeUser');
 });

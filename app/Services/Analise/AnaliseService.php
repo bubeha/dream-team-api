@@ -6,6 +6,8 @@ namespace App\Services\Analise;
 
 use App\Models\User;
 use App\Queries\User\UserQueries;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Collection;
 
 /**
  * Class Analise
@@ -29,7 +31,7 @@ class AnaliseService
      * @param array $userIds
      * @return array
      */
-    public function analiseUsers(array $userIds): array
+    public function analyzeUsers(array $userIds): array
     {
         $users = $this->queries
             ->getUsersForAnalise($userIds);
@@ -65,5 +67,19 @@ class AnaliseService
         }
 
         return $result;
+    }
+
+    /**
+     * @param Authenticatable $currentUser
+     * @param array $authorIds
+     * @param string $rating
+     * @return Collection
+     */
+    public function analyzeCurrentUser(Authenticatable $currentUser, array $authorIds, string $rating): Collection
+    {
+        $user = $this->queries
+            ->getUserWithReviews($currentUser->getAuthIdentifier(), $authorIds, $rating);
+
+        return $user->reviews;
     }
 }
