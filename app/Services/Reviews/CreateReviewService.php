@@ -60,9 +60,8 @@ class CreateReviewService
             return $review;
         } catch (Exception $exception) {
             $this->dbManager->rollBack();
+            throw $exception;
         }
-
-        return null;
     }
 
     /**
