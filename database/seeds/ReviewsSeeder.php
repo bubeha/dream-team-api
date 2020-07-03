@@ -61,6 +61,7 @@ class ReviewsSeeder extends Seeder // @codingStandardsIgnoreLine
 
     /**
      * @return array
+     * @throws Exception
      */
     private function generateAttributes(): array
     {
@@ -95,9 +96,9 @@ class ReviewsSeeder extends Seeder // @codingStandardsIgnoreLine
             'interpersonalQualities_providesHonestReviews' => $this->getRandomItem($array),
             'interpersonalQualities_openForNewIdeas' => $this->getRandomItem($array),
             'workExperienceWithAnEmployee' => $this->getRandomItem([-2, -1, 0, 1, 2]),
-            'strongPersonalCharacteristics' => $faker->realText(255, 500),
-            'weakSides' => $faker->realText(255, 500),
-            'otherComments' => $faker->realText(255, 500),
+            'strongPersonalCharacteristics' => $faker->realText(random_int(255, 500)),
+            'weakSides' => $faker->realText(random_int(255, 500)),
+            'otherComments' => $faker->realText(random_int(255, 500)),
         ];
     }
 
