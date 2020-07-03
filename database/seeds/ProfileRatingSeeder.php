@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 /**
  * Class ProfileRatingSeeder
  */
-class ProfileRatingSeeder extends Seeder
+class ProfileRatingSeeder extends Seeder // @codingStandardsIgnoreLine
 {
     /** @var ReviewQueries */
     private $queries;
@@ -21,7 +21,7 @@ class ProfileRatingSeeder extends Seeder
         $this->queries = $queries;
     }
 
-    public function run()
+    public function run(): void
     {
         $profiles = Profile::query()->where('rating', '=', 0)->cursor();
 

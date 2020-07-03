@@ -3,6 +3,7 @@
 // phpcs:disable
 
 use App\Models\Profile;
+use App\Models\Reviews\Attribute;
 use App\Models\Reviews\Review;
 use App\Models\User;
 use Carbon\Carbon;
@@ -88,13 +89,12 @@ $factory->define(Profile::class, static function (Faker $faker) {
 });
 
 $factory->define(Review::class, static function (Faker $faker) {
-    $rating = [-1, 0, 1];
-    $statusKey = array_rand($rating);
-
     return [
-        'strong_personal_characteristics' => $faker->text(255),
-        'weak_sides' => $faker->text(255),
-        'other_comments' => $faker->text(255),
-        'rating' => $rating[$statusKey],
+    ];
+});
+
+$factory->afterMaking(Attribute::class, static function (Faker $faker) {
+    return [
+
     ];
 });
