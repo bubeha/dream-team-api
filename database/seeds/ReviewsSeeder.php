@@ -95,9 +95,9 @@ class ReviewsSeeder extends Seeder // @codingStandardsIgnoreLine
             'interpersonalQualities_providesHonestReviews' => $this->getRandomItem($array),
             'interpersonalQualities_openForNewIdeas' => $this->getRandomItem($array),
             'workExperienceWithAnEmployee' => $this->getRandomItem([-2, -1, 0, 1, 2]),
-            'strongPersonalCharacteristics' => $faker->realText(3000),
-            'weakSides' => $faker->realText(3000),
-            'otherComments' => $faker->realText(3000),
+            'strongPersonalCharacteristics' => $faker->realText(255, 500),
+            'weakSides' => $faker->realText(255, 500),
+            'otherComments' => $faker->realText(255, 500),
         ];
     }
 
