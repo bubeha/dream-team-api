@@ -23,7 +23,7 @@ class UserQueryModifier extends QueryModifier implements UserQueryModifierContra
     public function search(Builder $queries): void
     {
         $queries->when($this->request->get('searchPhrase'), static function (Builder $query, $value) {
-            $query->having('name', 'like', '%' . $value . '%');
+            $query->having('full_name', 'like', '%' . $value . '%');
         });
     }
 
