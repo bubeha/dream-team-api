@@ -70,12 +70,15 @@ class EloquentUserQueries implements UserQueries
     {
         return User::query()
             ->with([
+                'profile',
                 'reviews' => static function ($query) use ($users) {
                     /** @var Builder $query */
                     $query
+                        ->whereIn('author_id', $users)
                         ->whereIn('user_id', $users)
-                        ->orderBy('created_at', 'desc')
-                        ->groupBy('user_id');
+                        ->where('user_id', '!=', new Expression('author_id'))
+                        ->groupBy('user_id', 'author_id')
+                        ->orderBy('created_at', 'desc');
                 },
             ])
             ->whereIn('id', $users)
