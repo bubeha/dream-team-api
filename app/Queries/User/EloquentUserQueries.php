@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Queries\User;
 
 use App\Models\User;
+use App\Services\QueryModifier\QueryModifierContract;
 use App\Services\QueryModifier\User\UserListQueryModifierContract;
 use Illuminate\Database\Query\Expression;
 
@@ -17,9 +18,20 @@ class EloquentUserQueries implements UserQueries
     /**
      * @inheritDoc
      */
-    public function getItemsWithPagination(int $size = 10)
+    public function getItemsWithPagination(QueryModifierContract $modifier, int $size = 10)
     {
-        return User::with('profile')->paginate($size);
+        $query = User::with('profile')
+            ->select(
+                'users.*',
+                new Expression('p.job_title as job_title'),
+                new Expression('p.focus as focus'),
+                new Expression('CONCAT(first_name, \' \', last_name) as full_name')
+            )
+            ->join('profiles as p', 'p.user_id', '=', 'users.id');
+
+        $modifier->modify($query);
+
+        return $query->paginate($size);
     }
 
     /**

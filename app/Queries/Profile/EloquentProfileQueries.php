@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Queries\Profile;
 
 use App\Models\Profile;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Collection;
 
 /**
@@ -15,26 +16,28 @@ class EloquentProfileQueries implements ProfileQueries
 {
 
     /**
-     * @return Collection
+     * @inheritDoc
      */
-    public function getUniqueJobs(): Collection
+    public function getUniqueJobs(Authenticatable $currentUser): Collection
     {
         return Profile::query()
-            ->select('id', 'job_title')
+            ->select('job_title')
             ->whereNotNull('job_title')
+            ->where('user_id', '!=', $currentUser->getAuthIdentifier())
             ->distinct('job_title')
-            ->pluck('job_title', 'id');
+            ->pluck('job_title');
     }
 
     /**
-     * @return Collection
+     * @inheritDoc
      */
-    public function getUniqueFocuses(): Collection
+    public function getUniqueFocuses(Authenticatable $currentUser): Collection
     {
         return Profile::query()
-            ->select('id', 'focus')
+            ->select('focus')
             ->whereNotNull('focus')
+            ->where('user_id', '!=', $currentUser->getAuthIdentifier())
             ->distinct('focus')
-            ->pluck('focus', 'id');
+            ->pluck('focus');
     }
 }

@@ -10,8 +10,11 @@ use App\Queries\EloquentReviewQueries;
 use App\Queries\Profile\ProfileQueries;
 use App\Queries\User\UserQueries;
 use App\Services\QueryModifier\User\UserListQueryModifierContract;
+use App\Services\QueryModifier\User\UserQueryModifierContract;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
+use Laravel\Lumen\Http\Request;
 use Laravel\Lumen\Http\ResponseFactory;
 
 /**
@@ -38,16 +41,18 @@ class UserController extends Controller
     }
 
     /**
+     * @param UserQueryModifierContract $modifier
+     * @param Request $request
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function getUsersWithPagination(): JsonResponse
+    public function getUsersWithPagination(UserQueryModifierContract $modifier, Request $request): JsonResponse
     {
         $this->authorize('list', User::class);
 
         return $this->response
             ->json(
-                $this->queries->getItemsWithPagination()
+                $this->queries->getItemsWithPagination($modifier, $request->get('size', 10))
             );
     }
 
@@ -87,17 +92,18 @@ class UserController extends Controller
 
     /**
      * @param ProfileQueries $profileQueries
+     * @param Authenticatable $currentUser
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function getDataForFilter(ProfileQueries $profileQueries): JsonResponse
+    public function getDataForFilter(ProfileQueries $profileQueries, Authenticatable $currentUser): JsonResponse
     {
         $this->authorize('list', User::class);
 
         return $this->response
             ->json([
-                'focuses' => $profileQueries->getUniqueFocuses(),
-                'jobs' => $profileQueries->getUniqueJobs(),
+                'focuses' => $profileQueries->getUniqueFocuses($currentUser),
+                'jobs' => $profileQueries->getUniqueJobs($currentUser),
             ]);
     }
 

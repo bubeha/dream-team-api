@@ -12,6 +12,8 @@ use App\Services\QueryModifier\Feed\FeedQueryModifier;
 use App\Services\QueryModifier\Feed\FeedQueryModifierContract;
 use App\Services\QueryModifier\User\UserListQueryModifier;
 use App\Services\QueryModifier\User\UserListQueryModifierContract;
+use App\Services\QueryModifier\User\UserQueryModifier;
+use App\Services\QueryModifier\User\UserQueryModifierContract;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -31,5 +33,6 @@ class AppServiceProvider extends ServiceProvider
         // Modifiers
         $this->app->bind(FeedQueryModifierContract::class, FeedQueryModifier::class);
         $this->app->bind(UserListQueryModifierContract::class, UserListQueryModifier::class);
+        $this->app->bind(UserQueryModifierContract::class, UserQueryModifier::class);
     }
 }
