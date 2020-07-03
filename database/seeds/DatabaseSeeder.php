@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder // @codingStandardsIgnoreLine
         $this->call(EmployeeTableSeeder::class);
         $this->call(GenerateUsersTableSeeder::class);
         $this->call(ReviewsSeeder::class);
+        $this->call(ProfileRatingSeeder::class);
     }
 }

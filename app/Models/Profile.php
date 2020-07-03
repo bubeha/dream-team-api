@@ -39,6 +39,8 @@ class Profile extends Model
         'job_title',
         'social_links',
         'short_description',
+        'focus',
+        'rating',
     ];
 
     /**

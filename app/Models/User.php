@@ -60,6 +60,7 @@ use function app;
  * @uses \App\Models\User::getAgeAttribute();
  * @uses \App\Models\User::getYearsOfExperienceAttribute();
  * @uses \App\Models\User::getImageSrcAttribute();
+ * @uses \App\Models\User::getIsManagerAttribute();
  * @mixin \Eloquent
  */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
@@ -90,6 +91,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'age',
         'years_of_experience',
         'image_src',
+        'is_manager',
     ];
 
     /**
@@ -132,6 +134,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function getFullNameAttribute(): string
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsManagerAttribute(): bool
+    {
+        return $this->hasRole(Role::MANAGER_ROLE);
     }
 
     /**

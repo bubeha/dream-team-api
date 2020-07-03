@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Queries\User;
 
 use App\Models\User;
+use App\Services\QueryModifier\QueryModifierContract;
 use App\Services\QueryModifier\User\UserListQueryModifierContract;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -15,10 +16,11 @@ use Illuminate\Database\Eloquent\Collection;
 interface UserQueries
 {
     /**
+     * @param QueryModifierContract $modifier
      * @param int $size
      * @return mixed
      */
-    public function getItemsWithPagination(int $size = 10);
+    public function getItemsWithPagination(QueryModifierContract $modifier, int $size = 10);
 
     /**
      * @param $id
