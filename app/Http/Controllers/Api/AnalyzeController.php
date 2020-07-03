@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Services\Analise\AnaliseService;
+use App\Services\Analise\AnalyzeService;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ use Laravel\Lumen\Http\ResponseFactory;
  * Class AnaliseController
  * @package App\Http\Controllers\Api
  */
-class AnaliseController extends Controller
+class AnalyzeController extends Controller
 {
     /** @var ResponseFactory */
     private $response;
@@ -24,16 +24,16 @@ class AnaliseController extends Controller
     /** @var Request */
     private $request;
 
-    /** @var AnaliseService */
+    /** @var AnalyzeService */
     private $service;
 
     /**
      * AnaliseController constructor.
      * @param ResponseFactory $response
      * @param Request $request
-     * @param AnaliseService $service
+     * @param AnalyzeService $service
      */
-    public function __construct(ResponseFactory $response, Request $request, AnaliseService $service)
+    public function __construct(ResponseFactory $response, Request $request, AnalyzeService $service)
     {
         $this->response = $response;
         $this->request = $request;

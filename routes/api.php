@@ -50,8 +50,8 @@ $router->group([
         $router->delete('/{id}', 'TeamController@deleteTeam');
     });
 
-    /** @uses \App\Http\Controllers\Api\AnaliseController::getRelationshipStatistics() */
-    $router->post('analyze/users', 'AnaliseController@getRelationshipStatistics');
-    /** @uses \App\Http\Controllers\Api\AnaliseController::analyzeUser() */
-    $router->post('analyze/users/{id}', 'AnaliseController@analyzeUser');
+    /** @uses \App\Http\Controllers\Api\AnalyzeController::getRelationshipStatistics() */
+    $router->post('analyze/users', 'AnalyzeController@getRelationshipStatistics');
+    /** @uses \App\Http\Controllers\Api\AnalyzeController::analyzeUser() */
+    $router->post('analyze/users/{id}', 'AnalyzeController@analyzeUser');
 });

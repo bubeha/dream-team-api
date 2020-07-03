@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
  * Class Analise
  * @package App\Services\Analise
  */
-class AnaliseService
+class AnalyzeService
 {
     /** @var UserQueries */
     private $queries;
@@ -60,9 +60,11 @@ class AnaliseService
 
             $result[] = [
                 'user' => $user,
-                'negative' => 0,
-                'neutral' => 0,
-                'positive' => 0,
+                'statistic' => [
+                    'negative' => 0,
+                    'neutral' => 0,
+                    'positive' => 0,
+                ],
             ];
         }
 
