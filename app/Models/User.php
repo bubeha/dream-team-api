@@ -6,7 +6,6 @@ namespace App\Models;
 
 use App\Models\Reviews\Review;
 use DateTimeInterface;
-use Eloquent;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -44,6 +43,9 @@ use function app;
  * @property-read Profile $profile
  * @property-read int|null $roles_count
  * @property-read Collection|Role[]|null $roles
+ * @property-read bool $is_manager
+ * @property-read Collection|Review[] $reviews
+ * @property-read int|null $reviews_count
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
  * @method static Builder|User query()
@@ -64,7 +66,6 @@ use function app;
  * @uses \App\Models\User::getYearsOfExperienceAttribute();
  * @uses \App\Models\User::getImageSrcAttribute();
  * @uses \App\Models\User::getIsManagerAttribute();
- * @mixin Eloquent
  */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
