@@ -6,6 +6,8 @@ use App\Queries\EloquentReviewQueries;
 use App\Queries\Profile\EloquentProfileQueries;
 use App\Queries\Profile\ProfileQueries;
 use App\Queries\ReviewQueries;
+use App\Queries\Team\EloquentTeamQueries;
+use App\Queries\Team\TeamQueries;
 use App\Queries\User\EloquentUserQueries;
 use App\Queries\User\UserQueries;
 use App\Services\QueryModifier\Feed\FeedQueryModifier;
@@ -29,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ReviewQueries::class, EloquentReviewQueries::class);
         $this->app->bind(UserQueries::class, EloquentUserQueries::class);
         $this->app->bind(ProfileQueries::class, EloquentProfileQueries::class);
+        $this->app->bind(TeamQueries::class, EloquentTeamQueries::class);
 
         // Modifiers
         $this->app->bind(FeedQueryModifierContract::class, FeedQueryModifier::class);

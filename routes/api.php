@@ -14,7 +14,7 @@ $router->group([
     /** @uses \App\Http\Controllers\Api\AuthController::getCurrentUserData() */
     $router->post('me', 'AuthController@getCurrentUserData');
 
-    $router->group(['prefix' => 'feed'], function () use ($router) {
+    $router->group(['prefix' => 'feed'], static function () use ($router) {
         /** @uses \App\Http\Controllers\Api\ReviewController::getFeedForEmployee() */
         $router->get('/', 'ReviewController@getFeedForEmployee');
         $router->get('/size/{size}', 'ReviewController@getFeedForEmployee');
@@ -22,7 +22,7 @@ $router->group([
         $router->get('/{feedId}', 'ReviewController@show');
     });
 
-    $router->group(['prefix' => 'users'], function () use ($router) {
+    $router->group(['prefix' => 'users'], static function () use ($router) {
         /** @uses \App\Http\Controllers\Api\UserController::getUsersWithPagination() */
         $router->get('/', 'UserController@getUsersWithPagination');
         /** @uses \App\Http\Controllers\Api\UserController::getUserFeed() */
@@ -35,5 +35,18 @@ $router->group([
         $router->get('/{userId}', 'UserController@getUser');
         /** @uses \App\Http\Controllers\Api\ReviewController::addNewReviewToUser() */
         $router->post('/{userId}/reviews', 'ReviewController@addNewReviewToUser');
+    });
+
+    $router->group(['prefix' => 'teams'], static function () use ($router) {
+        /** @uses \App\Http\Controllers\Api\TeamController::getTeams() */
+        $router->get('/', 'TeamController@getTeams');
+        /** @uses \App\Http\Controllers\Api\TeamController::showTeam() */
+        $router->get('/{id}', 'TeamController@showTeam');
+        /** @uses \App\Http\Controllers\Api\TeamController::createTeam() */
+        $router->post('/', 'TeamController@createTeam');
+        /** @uses \App\Http\Controllers\Api\TeamController::updateTeam() */
+        $router->put('/{id}', 'TeamController@updateTeam');
+        /** @uses \App\Http\Controllers\Api\TeamController::deleteTeam() */
+        $router->delete('/{id}', 'TeamController@deleteTeam');
     });
 });
