@@ -41,5 +41,6 @@ class UserListQueryModifier extends QueryModifier implements UserListQueryModifi
     public function modify(Builder $query)
     {
         $this->search($query);
+        $this->ignoreCurrentUser($query);
     }
 }
