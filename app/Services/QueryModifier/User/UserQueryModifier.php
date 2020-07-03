@@ -84,7 +84,7 @@ class UserQueryModifier extends QueryModifier implements UserQueryModifierContra
         $attributes = $this->validate($this->request, $this->getSortValidationRules());
 
         if (isset($attributes['sort_column'])) {
-            $queries->orderBy($attributes['sort_column'], $this->getDirectory($attributes['sort_direction']));
+            $queries->orderBy($attributes['sort_column'], $this->getDirectory($attributes['sort_direction'] ?? 'desc'));
         }
     }
 

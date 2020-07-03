@@ -6,9 +6,12 @@ namespace App\Models\Reviews;
 
 use App\Events\ReviewChangesEvent;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * Class Review
@@ -18,23 +21,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $user_id
  * @property int $author_id
  * @property int $rating
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User $author
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read User $author
  * @property-read array $attributes
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Reviews\Attribute[] $reviewAttributes
+ * @property-read Collection|Attribute[] $reviewAttributes
  * @property-read int|null $review_attributes_count
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review whereAuthorId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review whereRating($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reviews\Review whereUserId($value)
- * @mixin \Eloquent
+ * @property-read User $user
+ * @method static Builder|Review newModelQuery()
+ * @method static Builder|Review newQuery()
+ * @method static Builder|Review query()
+ * @method static Builder|Review whereAuthorId($value)
+ * @method static Builder|Review whereCreatedAt($value)
+ * @method static Builder|Review whereId($value)
+ * @method static Builder|Review whereRating($value)
+ * @method static Builder|Review whereUpdatedAt($value)
+ * @method static Builder|Review whereUserId($value)
+ * @uses \App\Models\Reviews\Review::getAttributesAttribute()
  */
 class Review extends Model
 {
@@ -92,7 +95,7 @@ class Review extends Model
      *
      * @return array
      */
-    public function getAttributesAttribute()
+    public function getAttributesAttribute(): array
     {
         $attributes = [];
 

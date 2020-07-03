@@ -14,3 +14,17 @@ function generateRandomDate(DateTimeInterface $startDate, DateTimeInterface $end
 
     return Carbon::createFromTimestamp($timestamp);
 }
+
+/**
+ * @param number $numberOne
+ * @param number $numberTwo
+ * @return float|int
+ */
+function calculatePercent($numberOne, $numberTwo)
+{
+    if ($numberTwo > 0) {
+        return ($numberOne / $numberTwo) * 100;
+    }
+
+    return 0;
+}

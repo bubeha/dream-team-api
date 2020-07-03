@@ -42,28 +42,16 @@ class AnalyzeService
             /** @var User $user */
             $count = $user->reviews->count();
 
-            if ($count > 0) {
-                $negative = $user->reviews->where('rating', '<', 0)->count();
-                $neutral = $user->reviews->where('rating', '=', 0)->count();
-                $positive = $user->reviews->where('rating', '>', 0)->count();
-
-                $result[] = [
-                    'user' => $user,
-                    'statistic' => [
-                        'negative' => ($negative / $count) * 100,
-                        'neutral' => ($neutral / $count) * 100,
-                        'positive' => ($positive / $count) * 100,
-                    ],
-                ];
-                continue;
-            }
+            $negative = $user->reviews->where('rating', '<', 0)->count();
+            $neutral = $user->reviews->where('rating', '=', 0)->count();
+            $positive = $user->reviews->where('rating', '>', 0)->count();
 
             $result[] = [
                 'user' => $user,
                 'statistic' => [
-                    'negative' => 0,
-                    'neutral' => 0,
-                    'positive' => 0,
+                    'negative' => calculatePercent($negative, $count),
+                    'neutral' => calculatePercent($neutral, $count),
+                    'positive' => calculatePercent($positive, $count),
                 ],
             ];
         }

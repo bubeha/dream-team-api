@@ -7,8 +7,8 @@ namespace App\Services\QueryModifier\Feed;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class ReviewFeedQueryModifier
- * @package App\Services
+ * Interface FeedQueryModifierContract
+ * @package App\Services\QueryModifier\Feed
  */
 interface FeedQueryModifierContract
 {

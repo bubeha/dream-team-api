@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use App\Events\ReviewChangesEvent;
 use App\Listeners\ChangeUserRatingListener;
 use Laravel\Lumen\Providers\EventServiceProvider as ServiceProvider;
 
+/**
+ * Class EventServiceProvider
+ * @package App\Providers
+ */
 class EventServiceProvider extends ServiceProvider
 {
     /**

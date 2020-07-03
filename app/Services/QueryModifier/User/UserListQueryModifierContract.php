@@ -7,7 +7,7 @@ namespace App\Services\QueryModifier\User;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class UserQueryModifierContract
+ * Interface UserListQueryModifierContract
  * @package App\Services\QueryModifier\User
  */
 interface UserListQueryModifierContract

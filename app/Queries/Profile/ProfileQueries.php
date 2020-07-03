@@ -8,7 +8,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Collection;
 
 /**
- * Class ProfileQueries
+ * Interface ProfileQueries
  * @package App\Queries\Profile
  */
 interface ProfileQueries

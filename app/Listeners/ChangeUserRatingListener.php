@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Listeners;
 
 use App\Events\ReviewChangesInterface;
 use App\Models\Profile;
 use App\Queries\ReviewQueries;
 
+/**
+ * Class ChangeUserRatingListener
+ * @package App\Listeners
+ */
 class ChangeUserRatingListener
 {
     /** @var ReviewQueries */
@@ -34,7 +40,9 @@ class ChangeUserRatingListener
         $rating = $this->queries->getAVGRatingByUserId($review->user_id);
 
         if (isset($rating->rating)) {
-            $profile = Profile::where('user_id', '=', $review->user_id)->first();
+            $profile = Profile::query()
+                ->where('user_id', '=', $review->user_id)
+                ->first();
 
             if ($profile) {
                 $profile->update([

@@ -28,7 +28,9 @@ class UserListQueryModifier extends QueryModifier implements UserListQueryModifi
      */
     public function ignoreCurrentUser(Builder $queries): void
     {
-        if ($user = $this->request->user()) {
+        $user = $this->request->user();
+
+        if ($user) {
             $queries->where('id', '!=', $user->getKey());
         }
     }
