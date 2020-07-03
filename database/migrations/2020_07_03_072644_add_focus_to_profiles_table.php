@@ -20,6 +20,7 @@ class AddFocusToProfilesTable extends Migration // @codingStandardsIgnoreLine
     {
         Schema::table('profiles', static function (Blueprint $table) {
             $table->string('focus')->nullable();
+            $table->float('rating')->default(0);
         });
     }
 
@@ -32,6 +33,7 @@ class AddFocusToProfilesTable extends Migration // @codingStandardsIgnoreLine
     {
         Schema::table('profiles', static function (Blueprint $table) {
             $table->dropColumn('focus');
+            $table->dropColumn('rating');
         });
     }
 }

@@ -25,6 +25,7 @@ class EloquentUserQueries implements UserQueries
                 'users.*',
                 new Expression('p.job_title as job_title'),
                 new Expression('p.focus as focus'),
+                new Expression('p.rating as rating'),
                 new Expression('CONCAT(first_name, \' \', last_name) as full_name')
             )
             ->join('profiles as p', 'p.user_id', '=', 'users.id');

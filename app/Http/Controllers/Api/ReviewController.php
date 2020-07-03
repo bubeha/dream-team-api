@@ -105,18 +105,8 @@ class ReviewController extends Controller
             $service->getValidationRules()
         );
 
-        $this->up();
+        $review = $service->create($user, $currentUser, $attributes);
 
-        return $this->response->json(
-            $service->create($user, $currentUser, $attributes)
-        );
-    }
-
-    /**
-     * @return int
-     */
-    public function up(): int
-    {
-        return 123;
+        return $this->response->json($review);
     }
 }

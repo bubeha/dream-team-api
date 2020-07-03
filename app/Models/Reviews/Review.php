@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Reviews;
 
+use App\Events\ReviewChangesEvent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -50,6 +51,17 @@ class Review extends Model
     protected $appends = ['attributes'];
 
     protected $hidden = ['reviewAttributes'];
+
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'saved' => ReviewChangesEvent::class,
+        'deleted' => ReviewChangesEvent::class,
+    ];
 
     /**
      * @return BelongsTo

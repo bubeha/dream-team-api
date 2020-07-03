@@ -6,6 +6,9 @@ namespace App\Queries;
 
 use App\Models\Reviews\Review;
 use App\Services\QueryModifier\Feed\FeedQueryModifierContract;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Expression;
 
 /**
  * Class EloquentReviewQueries
@@ -38,5 +41,19 @@ class EloquentReviewQueries implements ReviewQueries
     {
         return Review::with(['user.profile', 'author.profile'])
             ->findOrFail($key);
+    }
+
+    /**
+     * @param $userId
+     * @return Review|Builder|Model|object|null
+     */
+    public function getAVGRatingByUserId($userId)
+    {
+        return app('db')
+            ->table('reviews')
+            ->select(new Expression('AVG(rating) as rating'))
+            ->where('user_id', '=', $userId)
+            ->groupBy('user_id')
+            ->first();
     }
 }

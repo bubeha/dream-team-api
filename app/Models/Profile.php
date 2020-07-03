@@ -40,6 +40,7 @@ class Profile extends Model
         'social_links',
         'short_description',
         'focus',
+        'rating',
     ];
 
     /**

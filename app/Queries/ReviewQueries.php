@@ -29,4 +29,10 @@ interface ReviewQueries
      * @return Builder|Builder[]|Collection|Model
      */
     public function find($key);
+
+    /**
+     * @param $userId
+     * @return mixed
+     */
+    public function getAVGRatingByUserId($userId);
 }
