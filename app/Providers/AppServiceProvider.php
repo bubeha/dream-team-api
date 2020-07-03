@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Queries\EloquentReviewQueries;
+use App\Queries\Profile\EloquentProfileQueries;
+use App\Queries\Profile\ProfileQueries;
 use App\Queries\ReviewQueries;
 use App\Queries\User\EloquentUserQueries;
 use App\Queries\User\UserQueries;
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
         // Queries
         $this->app->bind(ReviewQueries::class, EloquentReviewQueries::class);
         $this->app->bind(UserQueries::class, EloquentUserQueries::class);
+        $this->app->bind(ProfileQueries::class, EloquentProfileQueries::class);
 
         // Modifiers
         $this->app->bind(FeedQueryModifierContract::class, FeedQueryModifier::class);

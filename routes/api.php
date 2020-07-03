@@ -24,6 +24,8 @@ $router->group([
     $router->get('users/{userId}/feed', 'UserController@getUserFeed');
     /** @uses \App\Http\Controllers\Api\UserController::getListOfUsers() */
     $router->get('users/list', 'UserController@getListOfUsers');
+    /** @uses \App\Http\Controllers\Api\UserController::getDataForFilter() */
+    $router->get('users/filter-data', 'UserController@getDataForFilter');
     /** @uses \App\Http\Controllers\Api\UserController::getUser() */
     $router->get('users/{userId}', 'UserController@getUser');
     /** @uses \App\Http\Controllers\Api\ReviewController::addNewReviewToUser() */

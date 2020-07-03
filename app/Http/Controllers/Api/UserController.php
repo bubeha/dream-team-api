@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Queries\EloquentReviewQueries;
+use App\Queries\Profile\ProfileQueries;
 use App\Queries\User\UserQueries;
 use App\Services\QueryModifier\User\UserListQueryModifierContract;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -82,6 +83,22 @@ class UserController extends Controller
             ->json(
                 $this->queries->getList($modifier)
             );
+    }
+
+    /**
+     * @param ProfileQueries $profileQueries
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function getDataForFilter(ProfileQueries $profileQueries): JsonResponse
+    {
+        $this->authorize('list', User::class);
+
+        return $this->response
+            ->json([
+                'focuses' => $profileQueries->getUniqueFocuses(),
+                'jobs' => $profileQueries->getUniqueJobs(),
+            ]);
     }
 
     /**
