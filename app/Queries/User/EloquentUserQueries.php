@@ -7,6 +7,7 @@ namespace App\Queries\User;
 use App\Models\User;
 use App\Services\QueryModifier\QueryModifierContract;
 use App\Services\QueryModifier\User\UserListQueryModifierContract;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
 
 /**
@@ -59,5 +60,25 @@ class EloquentUserQueries implements UserQueries
 
         return $query->get(['id', 'name'])
             ->pluck('name', 'id');
+    }
+
+    /**
+     * @param array $users
+     * @return mixed|void
+     */
+    public function getUsersForAnalise(array $users)
+    {
+        return User::query()
+            ->with([
+                'reviews' => static function ($query) use ($users) {
+                    /** @var Builder $query */
+                    $query
+                        ->whereIn('user_id', $users)
+                        ->orderBy('created_at', 'desc')
+                        ->groupBy('user_id');
+                },
+            ])
+            ->whereIn('id', $users)
+            ->get();
     }
 }

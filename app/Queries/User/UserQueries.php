@@ -33,4 +33,10 @@ interface UserQueries
      * @return Collection|mixed
      */
     public function getList(UserListQueryModifierContract $modifier = null);
+
+    /**
+     * @param array $users
+     * @return mixed
+     */
+    public function getUsersForAnalise(array $users);
 }
