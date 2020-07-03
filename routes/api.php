@@ -49,4 +49,7 @@ $router->group([
         /** @uses \App\Http\Controllers\Api\TeamController::deleteTeam() */
         $router->delete('/{id}', 'TeamController@deleteTeam');
     });
+
+    /** @uses \App\Http\Controllers\Api\AnaliseController::usersAnalise() */
+    $router->post('analise/users', 'AnaliseController@usersAnalise');
 });

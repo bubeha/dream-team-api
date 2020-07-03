@@ -19,6 +19,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int $user_id
+ * @property string|null $focus
+ * @property float $rating
  * @method static Builder|Profile newModelQuery()
  * @method static Builder|Profile newQuery()
  * @method static Builder|Profile query()
@@ -29,7 +31,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Profile whereSocialLinks($value)
  * @method static Builder|Profile whereUpdatedAt($value)
  * @method static Builder|Profile whereUserId($value)
- * @mixin \Eloquent
+ * @method static Builder|Profile whereFocus($value)
+ * @method static Builder|Profile whereRating($value)
  */
 class Profile extends Model
 {

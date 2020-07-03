@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Reviews\Review;
 use DateTimeInterface;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 use Laravel\Lumen\Auth\Authorizable;
@@ -41,6 +43,9 @@ use function app;
  * @property-read Profile $profile
  * @property-read int|null $roles_count
  * @property-read Collection|Role[]|null $roles
+ * @property-read bool $is_manager
+ * @property-read Collection|Review[] $reviews
+ * @property-read int|null $reviews_count
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
  * @method static Builder|User query()
@@ -61,7 +66,6 @@ use function app;
  * @uses \App\Models\User::getYearsOfExperienceAttribute();
  * @uses \App\Models\User::getImageSrcAttribute();
  * @uses \App\Models\User::getIsManagerAttribute();
- * @mixin \Eloquent
  */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
@@ -185,8 +189,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     // End Accessors Block
 
-    // Start Relationships Block
-
     /**
      * @return BelongsToMany
      */
@@ -194,6 +196,16 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return $this->belongsToMany(Role::class, 'users_roles');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    // Start Relationships Block
 
     /**
      * @return HasOne
