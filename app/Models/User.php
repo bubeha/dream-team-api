@@ -95,7 +95,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'age',
         'years_of_experience',
         'image_src',
-        'is_manager',
     ];
 
     /**
@@ -141,10 +140,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getIsManagerAttribute(): bool
+    public function getIsManagerAttribute(): ?bool
     {
+        if (! isset($this->relations['roles'])) {
+            return null;
+        }
+
         return $this->hasRole(Role::MANAGER_ROLE);
     }
 

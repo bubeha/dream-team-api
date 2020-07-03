@@ -60,6 +60,7 @@ class AuthController extends Controller
 
         if ($user instanceof User) {
             $user->loadMissing(['profile', 'roles']);
+            $user->append('is_manager');
         }
 
         return $this->response
@@ -76,7 +77,14 @@ class AuthController extends Controller
      */
     public function getCurrentUserData(): Authenticatable
     {
-        return $this->guard->user();
+        $user = $this->guard->user();
+
+        if ($user instanceof User) {
+            $user->loadMissing(['profile', 'roles']);
+            $user->append('is_manager');
+        }
+
+        return $user;
     }
 
     /**

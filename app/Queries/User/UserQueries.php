@@ -39,4 +39,12 @@ interface UserQueries
      * @return mixed
      */
     public function getUsersForAnalise(array $users);
+
+    /**
+     * @param $currentUserId
+     * @param array $authorIds
+     * @param string $rating
+     * @return mixed
+     */
+    public function getUserWithReviews($currentUserId, array $authorIds, string $rating);
 }
