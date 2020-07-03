@@ -109,7 +109,7 @@ class UserQueryModifier extends QueryModifier implements UserQueryModifierContra
     {
         return [
             'sort_column' => 'nullable|in:full_name,rating',
-            'sort_direction' => 'nullable|in:asc,desc',
+            'sort_direction' => 'nullable|in:ascend,descend',
         ];
     }
 }
