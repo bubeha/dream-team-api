@@ -1,0 +1,100 @@
+version: "3"
+
+services:
+  nginx:
+    build:
+      context: ./docker
+      dockerfile: nginx.dockerfile
+    volumes:
+      - ./:/app
+    depends_on:
+      - fpm
+    ports:
+      - "8080:80"
+    networks:
+      - backend
+
+  fpm:
+    build:
+      context: ./docker
+      dockerfile: fpm.dockerfile
+    volumes:
+      - ./:/app
+    environment:
+      XDEBUG_IDE_KEY: "PHPSTORM"
+      XDEBUG_REMOTE_HOST: "192.167.220.1"
+      PHP_IDE_CONFIG: "serverName=Docker"
+      DB_PORT: &MYSQL_PORT 3306
+      DB_DATABASE: &MYSQL_DATABASE app
+      DB_USERNAME: &MYSQL_USERNAME forge
+      DB_PASSWORD: &MYSQL_PASSWORD secret
+      DB_HOST: mysql
+      MONGODB_USERNAME: &MONGODB_USERNAME forge
+      MONGODB_PASSWORD: &MONGODB_PASSWORD secret
+      MAIL_DRIVER: smtp
+      MAIL_HOST: mailhog
+      MAIL_PORT: &MAILHOG_PORT 1025
+      MAIL_ENCRYPTION: null
+      RABBITMQ_QUEUE: &QUEUE_NAME striveportal
+      RABBITMQ_HOST: &QUEUE_HOST rabbitmq
+      RABBITMQ_PORT: &QUEUE_PORT 5672
+      RABBITMQ_USER: &QUEUE_USER forge
+      RABBITMQ_PASSWORD: &QUEUE_PASSWORD secret
+      QUEUE_CONNECTION: &QUEUE_CONNECTION_NAME rabbitmq
+    networks:
+      - backend
+    depends_on:
+      - mysql
+
+  cli:
+    build:
+      context: ./docker
+      dockerfile: cli.dockerfile
+    volumes:
+      - ./:/app
+    networks:
+      - backend
+    depends_on:
+      - mysql
+    tty: true
+    environment:
+      DB_PORT: *MYSQL_PORT
+      DB_DATABASE: *MYSQL_DATABASE
+      DB_USERNAME: *MYSQL_USERNAME
+      DB_PASSWORD: *MYSQL_PASSWORD
+      DB_HOST: mysql
+      MONGODB_USERNAME: *MONGODB_USERNAME
+      MONGODB_PASSWORD: *MONGODB_PASSWORD
+      MAIL_DRIVER: smtp
+      MAIL_HOST: mailhog
+      MAIL_PORT: *MAILHOG_PORT
+      MAIL_ENCRYPTION: null
+      RABBITMQ_QUEUE: *QUEUE_NAME
+      RABBITMQ_HOST: *QUEUE_HOST
+      RABBITMQ_PORT: *QUEUE_PORT
+      RABBITMQ_USER: *QUEUE_USER
+      RABBITMQ_PASSWORD: *QUEUE_PASSWORD
+      QUEUE_CONNECTION: *QUEUE_CONNECTION_NAME
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - ./storage/mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: *MYSQL_DATABASE
+      MYSQL_USER: *MYSQL_USERNAME
+      MYSQL_PASSWORD: *MYSQL_PASSWORD
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.167.220.0/16
