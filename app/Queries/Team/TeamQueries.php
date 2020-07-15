@@ -22,6 +22,11 @@ interface TeamQueries
     public function getTeamsWithPagination(int $size = 10): LengthAwarePaginator;
 
     /**
+     * @return mixed
+     */
+    public function getAllTeams();
+
+    /**
      * @param $id
      * @return Builder|Builder[]|Collection|Model|null
      */

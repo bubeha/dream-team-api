@@ -32,4 +32,14 @@ class EloquentTeamQueries implements TeamQueries
             ->with('users')
             ->findOrFail($id);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAllTeams()
+    {
+        return Team::query()
+            ->withCount('users')
+            ->get();
+    }
 }

@@ -49,7 +49,13 @@ class TeamController extends Controller
     {
         $this->authorize('list', Team::class);
 
-        $result = $this->queries->getTeamsWithPagination($request->get('size', 10));
+        if ($size = $request->get('size')) {
+            $result = $this->queries->getTeamsWithPagination($size);
+
+            return $this->response->json($result);
+        }
+
+        $result = $this->queries->getAllTeams();
 
         return $this->response->json($result);
     }
